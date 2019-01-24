@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+	<link rel="stylesheet" type="text/css" href="/css/auto-complete.css">
+</head>
+<style>
+
+html { width: 100%; height:100%; overflow:hidden; }
+
+body{
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+  background: #092756;
+  background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%),-moz-linear-gradient(top,  rgba(57,173,219,.25) 0%, rgba(42,60,87,.4) 100%), -moz-linear-gradient(-45deg,  #670d10 0%, #092756 100%);
+  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -webkit-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -webkit-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+  background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -o-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -o-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+  background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), -ms-linear-gradient(top,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), -ms-linear-gradient(-45deg,  #670d10 0%,#092756 100%);
+  background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104,128,138,.4) 10%,rgba(138,114,76,0) 40%), linear-gradient(to bottom,  rgba(57,173,219,.25) 0%,rgba(42,60,87,.4) 100%), linear-gradient(135deg,  #670d10 0%,#092756 100%);
+}
+section{
+	width: 100%;
+	height: 5vh;
+	background-size: cover;
+}
+.menu{
+	position: absolute;
+	width: 100%;
+	background: rgba(255,255,255,.5);
+	padding: 0 100px;
+	box-sizing: border-box;
+	border-bottom: 1px solid rgba(0,0,0,.2)
+}
+.menu img{
+	float: left;
+	width: 84px;
+    border-radius:20px
+}
+nav{
+	position: relative;
+	float: right;
+}
+nav ul{
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+nav ul li{
+	list-style: none;
+}
+nav ul li a{
+	display: block;
+	color:#000;
+	text-decoration: none;
+	text-transform: uppercase;
+	padding: 14px 20px;
+}
+nav ul li a:hover{
+	background: #184771;
+	color: #fff;
+}
+nav ul li ul{
+	display: block;
+	background: rgba(255,255,255,.5);
+	min-width:250px;
+	position: absolute;
+	margin-top: 1px;
+	box-shadow: 0 2px 5px rgba(0,0,0,.5);
+	opacity: 0;
+	visibility: hidden;
+	transition: .5s;
+	transform: translateY(40px);
+}
+nav ul li:hover ul{
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0px);
+}
+nav ul li ul a{
+	padding: 10px;
+}
+
+{{!-- search-box styles --}}
+
+.search-container{
+  position: relative;
+  width: 490px;
+  display: block;
+  margin: 90px;
+  float: left;
+}
+input#search-bar2{
+  width: 100%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  &:focus{
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+    &::-webkit-input-placeholder{
+      transition: opacity 0.45s ease;
+  	  opacity: 0;
+     }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+  	  opacity: 0;
+     }
+    &:-ms-placeholder {
+     transition: opacity 0.45s ease;
+  	 opacity: 0;
+     }
+   }
+ }
+
+input#search-bar1{
+  width: 100%;
+  height: 45px;
+  padding: 0 20px;
+  font-size: 1rem;
+  border: 1px solid #D0CFCE;
+  outline: none;
+  &:focus{
+    border: 1px solid #008ABF;
+    transition: 0.35s ease;
+    color: #008ABF;
+    &::-webkit-input-placeholder{
+      transition: opacity 0.45s ease;
+  	  opacity: 0;
+     }
+    &::-moz-placeholder {
+      transition: opacity 0.45s ease;
+  	  opacity: 0;
+     }
+    &:-ms-placeholder {
+     transition: opacity 0.45s ease;
+  	 opacity: 0;
+     }
+   }
+ }
+
+.search-icon{
+  position: absolute;
+  float: right;
+  width: 75px;
+  height: 75px;
+  top: -15px;
+  right: -45px;
+}
+.search-button {
+	border: none;
+    outline: none;
+    background: transparent;
+}
+
+.main-div {
+	color: white;
+	margin: 5% 27%;
+}
+
+.sub-div {
+	margin: 30px;
+}
+
+.info {
+	font-size: 20px;
+}
+
+h2 {
+	margin-top: 30px;
+}
+
+.image {
+    float: left;
+    margin: 3% 7%;
+}
+
+.doc-link:link {
+  color: white;
+  text-decoration: none;
+}
+
+/* visited link */
+.doc-link:visited {
+  color: lightgray;
+}
+
+/* mouse over link */
+.doc-link:hover {
+  color: lightgray;
+}
+
+/* selected link */
+.doc-link:active {
+  color: white;
+}
+
+</style>
+<body>
+
+	<div class="menu">
+		<nav>
+			<ul>
+				<li><a href="./doc_editor">Create New Document</a></li>
+				<li><a href="#">Complaints</a>
+
+					<ul>
+
+						<li><a href="./complaintou">Complaint About Ordinary User</a></li>
+						<li><a href="./complaintdoc">Complaint About Documents</a></li>
+
+					</ul>
+				</li>
+
+					<li><a href="/alldocuments">All Documents</a></li>
+					<li><a href="/logout">Logout</a></li>
+
+				</li>
+			</ul>
+		</nav>
+	</div>
+  {{!-- {{results.1.first_name}} --}}
+		<section></section>
+		<div>
+			<form class="search-container">
+				<input type="text" id="search-bar1" placeholder="Search for documents">
+				<button type="submit" class="search-button"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
+			</form>
+
+			<form class="search-container">
+				<input type="text" id="search-bar2" placeholder="Search for users">
+				<button type="submit" class="search-button"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></button>
+			</form>
+		</div>
+		<section></section>
+    
+		
+
+        <div class="main-div">
+			<div class="image">
+				<img height="200" width="200" src="/images/{{user.image_name}}">
+		</div>
+		<div style="float:left">
+            <h2>General Information</h2>
+        
+            <div class="sub-div">
+                <p class="info">Name: {{user.first_name}} {{user.last_name}}</p>
+                <p class="info">Username: {{user.username}}</p>
+                <p class="info">My reason to become OU: {{user.whyOU}}</p>
+            </div>
+
+            <h2>Contact Information</h2>
+            <div class="sub-div">
+                <p class="info">Email: {{user.email}}</p>
+            </div>
+        
+            <h2>Documents</h2>
+            <div class="sub-div">
+                {{#each files}}
+					<a class="doc-link" href={{this.url}}>
+						<p class="info">{{this.file_name}}</p>
+					</a>
+		    	{{/each}}
+            </div>
+			</div>
+	    </div>
+		
+    </body>
+    <script src="/js/auto-complete.min.js"></script>
+<script>
+	var users = [];
+	fetch("/users")
+	.then(response => response.json())
+	.then(response => {
+		users = response;
+	})
+	.catch(err => {
+		users = [];
+	})
+	new autoComplete({
+    selector: '#search-bar2',
+    minChars: 1,
+	source: function(term, suggest){
+        term = term.toLowerCase();
+        var matches = [];
+        for (i=0; i<users.length; i++)
+            if (~users[i].first_name.toLowerCase().indexOf(term)) matches.push(users[i]);
+        suggest(matches);
+    },
+	renderItem: function (item, search){
+        search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+        return '<div class="autocomplete-suggestion" data-url="'+item.url+'" > '+item.first_name+'</div>';
+    },
+    onSelect: function(e, term, item){
+        var value = item.getAttribute("data-url");
+		window.location.href = value;
+    }
+	});
+
+	var files = [];
+	fetch("/docs")
+	.then(response => response.json())
+	.then(response => {
+		files = response;
+	})
+	.catch(err => {
+		files = [];
+	})
+	new autoComplete({
+    selector: '#search-bar1',
+    minChars: 1,
+	source: function(term, suggest){
+        term = term.toLowerCase();
+        var matches = [];
+        for (i=0; i<files.length; i++)
+            if (~files[i].file_name.toLowerCase().indexOf(term)) matches.push(files[i]);
+        suggest(matches);
+    },
+	renderItem: function (item, search){
+        search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
+        return '<div class="autocomplete-suggestion" data-url="'+item.url+'" > '+item.file_name+'</div>';
+    },
+    onSelect: function(e, term, item){
+        var value = item.getAttribute("data-url");
+		window.location.href = value;
+    }
+	});
+
+</script>
+</html>

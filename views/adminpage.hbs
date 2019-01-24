@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{title}}</title>
+</head>
+<style>
+
+html { width: 100%; height:100%; overflow:hidden; }
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background: #092756;
+    background: linear-gradient(#8b9da9, #fff6e4);
+}
+
+.menu{
+	position: absolute;
+	width: 100%;
+	background: rgba(255,255,255,.5);
+	padding: 0 100px;
+	box-sizing: border-box;
+	border-bottom: 1px solid rgba(0,0,0,.2)
+}
+
+.menu img{
+	float: left;
+	width: 84px;
+    border-radius:20px
+}
+
+nav{
+	position: relative;
+	float: right;
+}
+
+nav ul{
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+
+nav ul li{
+	list-style: none;
+}
+
+nav ul li a{
+	display: block;
+	color:#000;
+	text-decoration: none;
+	text-transform: uppercase;
+	padding: 14px 20px;
+}
+
+nav ul li a:hover{
+	background: #184771;
+	color: #fff;
+}
+
+nav ul li ul{
+	display: block;
+	background: rgba(255,255,255,.5);
+	min-width:250px;
+	position: absolute;
+	margin-top: 1px;
+	box-shadow: 0 2px 5px rgba(0,0,0,.5);
+	opacity: 0;
+	visibility: hidden;
+	transition: .5s;
+	transform: translateY(40px);
+}
+
+nav ul li:hover ul{
+	opacity: 1;
+	visibility: visible;
+	transform: translateY(0px);
+}
+
+nav ul li ul a{
+	padding: 10px;
+}
+
+section {
+	height: 50px;
+}
+
+.info {
+	margin: 0 auto;
+}
+
+.main-div {
+	text-align: center;
+}
+
+.sub-div {
+	width: 250%;
+}
+
+#resolved {
+	margin-bottom: 20px;
+}
+
+button {
+    width: 100px;
+    height: 20px;
+    font-size: 14px;
+    background-color: #5E5D5B;
+    border: none;
+    color: white;
+
+}
+
+</style>
+
+<body>
+	<div class="menu">
+		<nav>
+			<ul>
+				<li><a href="./adminpage">Admin Page</a></li>
+				<li><a href="./doc_editor">Create New Document</a></li>
+				<li><a href="#">Create Complaints</a>
+					<ul>
+						<li><a href="./complaintou">Complaint About Ordinary User</a></li>
+						<li><a href="./complaintdoc">Complaint About Documents</a></li>
+					</ul>
+				</li>
+                <li><a href="#">Resolve complaints</a>
+					<ul>
+							<li><a href="./resolveou">Resolve Complaints About Ordinary User</a></li>
+							<li><a href="./resolvedoc">Resolve Complaints About Documents</a></li>
+					</ul>
+				</li>
+                <li><a href="./applications">Applications</a></li>
+				<li><a href="./alldocumentsadmin">All Documents</a></li>
+				<li><a href="./register">Apply To Be OU</a></li>
+				<li><a href="/logout">Logout</a></li>
+			</ul>
+		</nav>
+	</div>
+	<section></section>
+	<div class="main-div">
+		<h1>Welcome to Administrative Page</h1>
+		<h3>Admin Name : {{user.first_name}} {{user.last_name}}</h3>
+		<h3>Contact Information : {{user.email}}</h3>
+		<div class="sub-div">
+			<div class="taboo" style="width: 20%; float:left">
+				<h2>Maintain Taboo Words</h2>
+				<h3>Here is the list of taboo words</h3>
+				{{#each words}}
+					<p class="info">{{this.word}}</p>
+				{{/each}}
+			</div>
+			<div class="complaints" id="complaints"style="width: 20%; float:left">
+				<h2>Current Complaints</h2>
+				{{#each complaints}}	
+					<div class="complaint-holder" data-comp-id={{this.comp_id}}>
+						<p class="info">Complaint content: {{this.comment_text}}</p>
+						<p class="info">Type of complaint: {{this.complaint_type}}</p>
+						{{#if this.file_name}}	
+						<p class="info">File name: {{this.file_name}}</p>
+						{{else }}
+						<p class="info">User name: {{this.first_name}} {{this.last_name}}</p>
+						{{/if}}			   
+					<button id="resolved" data-id={{this.comp_id}}>Resolved</button>
+					</div>		
+				{{/each}}
+			</div>
+		</div>
+		<div>
+			<h3>Instructions on how to resolve complaints</h3>	
+			<li>To add or delete taboo words go to resolve complaints/resolve complaints about documents</li>	
+			<li>To change user status go to resolve complaints/resolve complaints about ordinary users</li>
+		</div>
+	</div>
+	
+</body>
+<script>
+	document.getElementById("complaints").addEventListener("click", function(event){
+    	var compId = event.target.getAttribute("data-id");
+		fetch(`/complaints/${compId}`, {
+            method: "delete",
+			headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json'
+		}})
+    	.then(response => {
+            this.querySelector(`div[data-comp-id="${compId}"]`).remove(); 
+            alert("Thank you for resolving the conflict!") 
+        })
+        .catch((err) => {
+            console.log(err.message);
+        })
+	})
+
+</script>
+
+</html>
